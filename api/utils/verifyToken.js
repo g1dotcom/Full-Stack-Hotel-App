@@ -22,3 +22,12 @@ export const verifyUser = (req, res, next) => {
     }
   });
 };
+export const verifyAdmin = (req, res, next) => {
+  verifyToken(req, res, () => {
+    if (req.user.isAdmin) {
+      next();
+    } else {
+      res.status(403).send({ message: "You are not Authorized or admin!" });
+    }
+  });
+};

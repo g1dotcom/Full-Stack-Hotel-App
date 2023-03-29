@@ -9,7 +9,7 @@ import { verifyAdmin, verifyToken, verifyUser } from "../utils/verifyToken.js";
 
 const router = express.Router();
 
-router.get("/checkauthentication", verifyToken, (req, res, next) => {
+/* router.get("/checkauthentication", verifyToken, (req, res, next) => {
   res.status(200).send({ message: "Hello User , You are authenticated!" });
 });
 
@@ -23,7 +23,7 @@ router.get("/checkadmin/:id", verifyAdmin, (req, res, next) => {
   res
     .status(200)
     .send({ message: "Hello admin ,  You Are Delete Or Update all account !" });
-});
+}); */
 
 //UPDATE
 router.put("/:id", updateUser);

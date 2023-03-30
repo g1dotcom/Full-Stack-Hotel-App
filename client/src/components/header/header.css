@@ -74,6 +74,7 @@
 .date {
   position: absolute;
   top: 50px;
+  z-index: 2;
 }
 .options {
   z-index: 2;

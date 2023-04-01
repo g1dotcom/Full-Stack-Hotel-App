@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 //routes
 import authRoute from "./routes/auth.js";
@@ -26,6 +27,7 @@ const connect = async () => {
 connect();
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 

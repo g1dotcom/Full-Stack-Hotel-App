@@ -25,6 +25,7 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 
 //context
 import { SearchContext } from "../../context/SearchContex";
+import { AuthContext } from "../../context/AuthContext";
 
 ////////COMPONENT//////////
 
@@ -45,6 +46,8 @@ const Header = ({ type }) => {
     children: 0,
     room: 1,
   });
+
+  const { user } = useContext(AuthContext);
 
   const handleOption = (name, operation) => {
     setOptions((prev) => {
@@ -103,7 +106,7 @@ const Header = ({ type }) => {
             <p className="headerDesc">
               Get your first year of Genius for only $29.99 and get 10% off your
             </p>
-            <button className="headerBtn">Sign in / Register</button>
+            {!user && <button className="headerBtn">Sign in / Register</button>}
             <div className="headerSearch">
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />

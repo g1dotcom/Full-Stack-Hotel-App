@@ -19,18 +19,22 @@ import { useContext, useState } from "react";
 //CUSTOM-HOOKS
 import useFetch from "../../hooks/useFetch";
 //REACT-ROUTER
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 //CONTEXT
 import { SearchContext } from "../../context/SearchContex";
+import { AuthContext } from "../../context/AuthContext";
 
 const Hotel = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
+  //fetch hotel
   const { data, loading, error } = useFetch(`/hotels/find/${id}`);
 
+  //photos
   const photos = [
     {
       src: "https://cf.bstatic.com/xdata/images/hotel/max1280x900/261707778.jpg?k=56ba0babbcbbfeb3d3e911728831dcbc390ed2cb16c51d88159f82bf751d04c6&o=&hp=1",
@@ -52,8 +56,13 @@ const Hotel = () => {
     },
   ];
 
+  //CONTEXT
   const { dates, options } = useContext(SearchContext);
+  const { user } = useContext(AuthContext);
 
+  //nagivation
+  const navigate = useNavigate();
+  //calculate days
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   function dayDifference(date1, date2) {
     const timeDiff = Math.abs(date2.getTime() - date1.getTime());
@@ -77,6 +86,15 @@ const Hotel = () => {
     }
 
     setSlideNumber(newSlideNumber);
+  };
+
+  //handle click
+  const handleClick = () => {
+    if (user) {
+      setOpenModal(true);
+    } else {
+      navigate("/login");
+    }
   };
 
   return (
@@ -154,7 +172,7 @@ const Hotel = () => {
                   <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
                   nights)
                 </h2>
-                <button>Reserve or Book Now!</button>
+                <button onClick={handleClick}>Reserve or Book Now!</button>
               </div>
             </div>
           </div>

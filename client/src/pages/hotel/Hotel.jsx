@@ -23,6 +23,7 @@ import { Navigate, useLocation, useNavigate } from "react-router-dom";
 //CONTEXT
 import { SearchContext } from "../../context/SearchContex";
 import { AuthContext } from "../../context/AuthContext";
+import Reserve from "../../components/reserve/Reserve";
 
 const Hotel = () => {
   const location = useLocation();
@@ -180,6 +181,7 @@ const Hotel = () => {
           <Footer />
         </div>
       )}
+      {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}
     </div>
   );
 };
